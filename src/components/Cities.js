@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { defaultCities, getCities } from '../reducers';
+import { defaultCities, getCities, getSelectedCity } from '../reducers';
 import { Link } from 'react-router-dom';
 
 class Cities extends Component {
@@ -10,7 +10,7 @@ class Cities extends Component {
 
     render() {
         console.log('props', this.props);
-        const { defaultCities, cities, getDefaultCities, getCities } = this.props;
+        const { defaultCities, cities, getDefaultCities, getCities, getSelectedCity } = this.props;
         return (
         <div>
             <button onClick={getDefaultCities}>Get default cities</button>
@@ -22,7 +22,7 @@ class Cities extends Component {
 
             {cities.length > 0 && <p>Cities</p>}
             <ul>
-                    {cities.map((city, index) => <li key={index}> <Link to={`/city_${city}`}>{city}</Link></li>)}
+                {cities.map((city, index) => <li onClick={() => getSelectedCity(city.id)} key={index}> <Link to={`/city_${city.name}`}>{city.name}</Link></li>)}
             </ul>
         </div>
         );
@@ -41,7 +41,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     getDefaultCities: () => dispatch(defaultCities),
-    getCities: () => dispatch(getCities())
+    getCities: () => dispatch(getCities()),
+    getSelectedCity: (city) => dispatch(getSelectedCity(city))
 });
 
 
