@@ -1,32 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { defaultCities, getCities, getSelectedCity } from '../reducers';
 import { Link } from 'react-router-dom';
+import { defaultCities, getCities, getSelectedCity } from '../reducers';
 
-class Cities extends Component {
-    constructor(props) {
-        super(props);
-    }
 
-    render() {
-        console.log('props', this.props);
-        const { defaultCities, cities, getDefaultCities, getCities, getSelectedCity } = this.props;
-        return (
-        <div>
-            <button onClick={getDefaultCities}>Get default cities</button>
-            <button onClick={getCities}>Get cities</button>
-            {defaultCities.length > 0 && <p>Default Cities</p> }
-            <ul>
-                {defaultCities.map((city, index) => <li key={index}>{city}</li>)}
-            </ul>
+const Cities = (props) => {
+    console.log('props', props);
+    const { defaultCities, cities, getDefaultCities, getCities, getSelectedCity } = props;
+    return (
+    <div>
+        <Link to='/pages'>Pages</Link><br /><br />
+        <button onClick={getDefaultCities}>Get default cities</button>
+        <button onClick={getCities}>Get cities</button>
+        {defaultCities.length > 0 && <p>Default Cities</p> }
+        <ul>
+            {defaultCities.map((city, index) => <li key={index}>{city}</li>)}
+        </ul>
 
-            {cities.length > 0 && <p>Cities</p>}
-            <ul>
-                {cities.map((city, index) => <li onClick={() => getSelectedCity(city.id)} key={index}> <Link to={`/city_${city.name}`}>{city.name}</Link></li>)}
-            </ul>
-        </div>
-        );
-    }
+        {cities.length > 0 && <p>Cities</p>}
+        <ul>
+            {cities.map((city, index) => <li onClick={() => getSelectedCity(city.id)} key={index}> <Link to={`/city_${city.name}`}>{city.name}</Link></li>)}
+        </ul>
+    </div>
+    );
 }
 
 const mapStateToProps = state => {

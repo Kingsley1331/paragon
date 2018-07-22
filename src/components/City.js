@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-
 const City = (props) => {
     console.log('city props', props);
-const {name, main:{humidity, temp}={}, weather:[{description}={}] = [] } = props.selectedCity;
+    const {name, main:{humidity, temp}={}, weather:[{description}={}] = [] } = props.selectedCity;
     return <div>
         <Link to='/'><h4>Home</h4></Link>
         <h1>City: {name}</h1>
@@ -18,7 +17,5 @@ const {name, main:{humidity, temp}={}, weather:[{description}={}] = [] } = props
 const mapStateToProps = state => ({
     selectedCity: state.selectedCity
 });
-
-
 
 export default connect(mapStateToProps)(City);
